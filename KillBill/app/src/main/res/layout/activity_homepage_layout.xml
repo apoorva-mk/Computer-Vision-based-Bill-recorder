@@ -5,13 +5,14 @@
               android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="100"
+            android:layout_weight="1000"
+            android:background="@color/cardview_shadow_start_color"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    <Button
-            android:text="Button"
+            android:layout_height="200dp"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:text="@string/add_new_bill"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/button"/>
+            style="@style/CustomButtonStyle"
+            android:id="@+id/capture_amount_btn" />
 </LinearLayout>
