@@ -4,4 +4,6 @@
     <string name="open_camera">Open Camera</string>
     <string name="open_gallery">Open Gallery</string>
     <string name="add_new_bill">Add New Bill</string>
+    <string name="low_storage_error">Error: Low Storage!</string>
+    <string name="cant_open_gallery">Cannot open Gallery!</string>
 </resources>
