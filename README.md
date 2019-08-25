@@ -7,14 +7,17 @@ Language used : Kotlin
 Minimum API Level : API 21, Android 5.0 (Lollipop)
 Android Studio Version : 3.4
 
-#####
+---
 
-***How to set up:
+***How to set up:***
 - Clone the repository and then connect an Android phone/Emulator of the minimum given SDK level and then press 'Run' in Android Studio
-- It is mandatory for the Android device to have camera hardware and internal storage for images else the app will not download
+- It is mandatory for the Android device to have camera hardware and internal storage for images.
 
-***Usage Instructions:**
-*App Workflow:
+---
+
+***Usage Instructions:***
+<br>
+*App Workflow:*
 - The app will open up a screen which will show the user his/her list of previously captured bills
 - There is an option to delete any desired records as well
 - A button at the bottom will open up a new activity which allows the user to capture an image via any camera application or upload an image from gallery.
@@ -22,19 +25,27 @@ Android Studio Version : 3.4
 - The data will be stored along with the current system date and can be viewed in the home page as mentioned above
 - Appropriate Toast messages will guide the user during usage.
 
+---
+
 ***Technical details:***
-*Libraries
+<br>
+*Libraries*
 - Android Jetpack
 - Android X
 - Material Design
 - Android Vision - OCR Text Reader for Image Analysis 
 
-*Plugins
+---
+
+*Plugins*
 - Material Design Icon Generator
 
-*Database
+---
+
+*Database*
 - Used SQLite for storing the records
 
-*
+---
+
 
 
