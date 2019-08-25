@@ -1,4 +1,4 @@
-package com.apoorva.kill_bill.Adapters
+package com.apoorva.kill_bill.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -23,10 +23,11 @@ class BillRecordAdapter(val items: ArrayList<BillRecord>, val context: Context, 
         holder.billAmount.text = items.get(position).billAmount.toString()
         holder.billDesc.text = items.get(position).desc
         holder.billDate.text = items.get(position).billDate
+
+        //Using Lambda functions for implementing the recycler view onClickListener
         holder.delButton.setOnClickListener {
             clickListener(items.get(position))
         }
-        //holder.bind(items.get(position), clickListener)
     }
 
 }
@@ -36,10 +37,4 @@ class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
     var billAmount = view.bill_amt
     var billDate = view.bill_date
     var delButton = view.material_icon_button
-
-    fun bind(billRecord: BillRecord, clickListener: (BillRecord) -> Unit){
-        delButton.setOnClickListener {
-            clickListener(billRecord)
-        }
-    }
 }

@@ -1,4 +1,4 @@
-package com.apoorva.kill_bill.userInterface.HomePage
+package com.apoorva.kill_bill.user_interface.home_page
 
 
 import android.app.Dialog
@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apoorva.kill_bill.Adapters.BillRecordAdapter
+import com.apoorva.kill_bill.adapters.BillRecordAdapter
 import com.apoorva.kill_bill.R
-import com.apoorva.kill_bill.databaseHelper.SQLLiteHelper
+import com.apoorva.kill_bill.database_helper.SQLLiteHelper
 import com.apoorva.kill_bill.objects.BillRecord
-import com.apoorva.kill_bill.userInterface.captureAmount.CaptureAmountActivity
+import com.apoorva.kill_bill.user_interface.capture_amount.CaptureAmountActivity
 import kotlinx.android.synthetic.main.activity_homepage_layout.*
 import kotlinx.android.synthetic.main.custom_alert_box.*
 
@@ -35,12 +35,11 @@ class HomePageActivity : AppCompatActivity() {
         capture_amount_btn.setOnClickListener {
             val intent = Intent(this, CaptureAmountActivity::class.java)
             startActivity(intent)
-            //billRecords = sqlLiteHelper.getAllElements()
             finish()
-            //bill_records.adapter?.notifyDataSetChanged()
         }
     }
 
+    //Dialog to confirm deletion
     fun deleteRecordDialog(id: Int){
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.custom_alert_box)
@@ -55,9 +54,10 @@ class HomePageActivity : AppCompatActivity() {
 
     }
 
+    //Delete the record from sqlite db as well as our array so that recyclerview can be unpdated
     fun deleteRecord(id : Int){
         sqlLiteHelper.deleteProduct(id)
-        Toast.makeText(this, "Item Deleted Successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.item_deleted_msg), Toast.LENGTH_SHORT).show()
         for (i in 0 until billRecords.size){
             if(billRecords[i].id==id)
                 billRecords.removeAt(i)
@@ -65,6 +65,7 @@ class HomePageActivity : AppCompatActivity() {
         bill_records.adapter?.notifyDataSetChanged()
     }
 
+    //Function which will be passed around to implement click listener
     private fun ItemClicked(item : BillRecord) {
         deleteRecordDialog(item.id)
     }

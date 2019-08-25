@@ -1,4 +1,4 @@
-package com.apoorva.kill_bill.userInterface.captureAmount
+package com.apoorva.kill_bill.user_interface.capture_amount
 
 import android.Manifest
 import android.app.Activity
@@ -12,12 +12,11 @@ import kotlinx.android.synthetic.main.activity_capture_amount_layout.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.apoorva.kill_bill.databaseHelper.SQLLiteHelper
+import com.apoorva.kill_bill.database_helper.SQLLiteHelper
 import com.apoorva.kill_bill.objects.BillRecord
-import com.apoorva.kill_bill.userInterface.HomePage.HomePageActivity
+import com.apoorva.kill_bill.user_interface.home_page.HomePageActivity
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.gms.vision.Frame
 import kotlinx.android.synthetic.main.custom_dialog_box.*
@@ -47,6 +46,7 @@ class CaptureAmountActivity : AppCompatActivity(){
         }
     }
 
+    //When fetching from gallery, check if permissions have been granted and then open the gallery app
     fun fetchFromGallery() {
         try {
             if (ActivityCompat.checkSelfPermission(
@@ -74,6 +74,7 @@ class CaptureAmountActivity : AppCompatActivity(){
 
     }
 
+    //When fetching from camera, check if permissions have been granted and then open the camera app
     fun fetchFromCamera() {
         try {
             if (ActivityCompat.checkSelfPermission(applicationContext,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -88,6 +89,7 @@ class CaptureAmountActivity : AppCompatActivity(){
         }
     }
 
+    //Obtaining the image returned from the newly opened Camera Activity/Gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -115,6 +117,7 @@ class CaptureAmountActivity : AppCompatActivity(){
 
     }
 
+    //Get permission to use the camera application and gallery images
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             PICK_FROM_GALLERY ->
@@ -138,12 +141,13 @@ class CaptureAmountActivity : AppCompatActivity(){
         }
     }
 
-
+    //Function which displays the required Toast message
     fun showToastMessage(message: String){
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
 
+    //Use the text recognizer to find text in the image
     fun getTextFromImage(image : Bitmap){
         val textRecognizer = TextRecognizer.Builder(applicationContext).build()
         val imageFrame = Frame.Builder()
@@ -163,6 +167,7 @@ class CaptureAmountActivity : AppCompatActivity(){
         }
     }
 
+    //Use of regex to detect the amount
     fun parseText(text: String) : Boolean{
         if(text.matches("(Total|Cash|TOTAL|CASH|cash)[:]*[' ']*(\\d+(\\.\\d+)?)".toRegex())){
             val numRegex = "(\\d+(\\.\\d+)?)".toRegex()
@@ -188,6 +193,7 @@ class CaptureAmountActivity : AppCompatActivity(){
 
     }
 
+    //Show a dialog for entering description and the amount
     fun showDialog(){
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.custom_dialog_box)
@@ -206,6 +212,7 @@ class CaptureAmountActivity : AppCompatActivity(){
         dialog.show()
     }
 
+    //Function to get Current System Date
     fun getDate() : String{
         val c = Calendar.getInstance().getTime()
 
@@ -215,6 +222,7 @@ class CaptureAmountActivity : AppCompatActivity(){
         showToastMessage(formattedDate)
     }
 
+    //Open home page again when back pressed
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, HomePageActivity::class.java)

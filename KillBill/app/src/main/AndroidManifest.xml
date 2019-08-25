@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".userInterface.HomePage.HomePageActivity"
+                android:name=".user_interface.home_page.HomePageActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme">
             <intent-filter>
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".userInterface.captureAmount.CaptureAmountActivity"
+                android:name=".user_interface.capture_amount.CaptureAmountActivity"
                 android:label="Capture Amount"
                 android:theme="@style/AppTheme">
         </activity>

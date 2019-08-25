@@ -1,7 +1,4 @@
-//@file:Suppress("SyntaxError")
-//@file:SuppressLint("ByteOrderMark")
-
-package com.apoorva.kill_bill.databaseHelper
+package com.apoorva.kill_bill.database_helper
 
 import android.content.ContentValues
 import android.content.Context
@@ -17,6 +14,7 @@ class SQLLiteHelper (context: Context, name: String?,
     SQLiteOpenHelper(context, DATABASE_NAME,
         factory, 1) {
 
+    //Creating the required table for storing of records
     override fun onCreate(db: SQLiteDatabase) {
         val CREATE_TABLE = ("CREATE TABLE " +
                 TABLE + "("
@@ -27,6 +25,7 @@ class SQLLiteHelper (context: Context, name: String?,
         db.execSQL(CREATE_TABLE)
     }
 
+    //In the event that the table needs to be updated
     override fun onUpgrade(
         db: SQLiteDatabase, oldVersion: Int,
         newVersion: Int
@@ -34,6 +33,7 @@ class SQLLiteHelper (context: Context, name: String?,
         db.execSQL("DROP TABLE IF EXISTS"+ TABLE)
     }
 
+    //Function to add a record
     fun addProduct(billRecord: BillRecord) {
 
         val values = ContentValues()
@@ -47,6 +47,7 @@ class SQLLiteHelper (context: Context, name: String?,
         db.close()
     }
 
+    //This is equivalent to static data members in Java
     companion object {
 
         private val DATABASE_VERSION = 1
@@ -58,11 +59,12 @@ class SQLLiteHelper (context: Context, name: String?,
         val COLUMN_AMOUNT = "Amount"
     }
 
+    //This will fetch all the required elements for populating the recycler view
     fun getAllElements() : ArrayList<BillRecord> {
 
         val list = ArrayList<BillRecord>()
 
-        // Select All Query
+        //Select All Query
         val selectQuery = "SELECT  * FROM "+ TABLE
 
         val db = this.readableDatabase
@@ -70,8 +72,7 @@ class SQLLiteHelper (context: Context, name: String?,
 
             val cursor = db.rawQuery(selectQuery, null)
             try {
-
-                // looping through all rows and adding to list
+                //looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
                         var obj = BillRecord(cursor.getInt(0),cursor.getString(2), cursor.getDouble(3), cursor.getString(1))
@@ -98,6 +99,7 @@ class SQLLiteHelper (context: Context, name: String?,
         return list
     }
 
+    //This is to delete an entry in the dB
     fun deleteProduct(id: Int) {
 
         val db = this.writableDatabase

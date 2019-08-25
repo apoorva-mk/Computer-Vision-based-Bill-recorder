@@ -1,7 +1,7 @@
 package com.apoorva.kill_bill.objects
 
-import java.sql.Date
 
+//POJO to hold the record values to be inserted
 class BillRecord {
     var id:Int = 0
     var desc: String = ""
