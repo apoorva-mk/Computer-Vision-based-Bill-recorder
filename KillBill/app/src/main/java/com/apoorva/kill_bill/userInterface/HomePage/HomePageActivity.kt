@@ -1,5 +1,8 @@
 package com.apoorva.kill_bill.userInterface.HomePage
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -11,11 +14,15 @@ import com.apoorva.kill_bill.databaseHelper.SQLLiteHelper
 import com.apoorva.kill_bill.objects.BillRecord
 import com.apoorva.kill_bill.userInterface.captureAmount.CaptureAmountActivity
 import kotlinx.android.synthetic.main.activity_homepage_layout.*
+import kotlinx.android.synthetic.main.custom_alert_box.*
+import kotlinx.android.synthetic.main.custom_alert_box.view.*
+import kotlinx.android.synthetic.main.custom_dialog_box.*
 
 class HomePageActivity : AppCompatActivity() {
 
     lateinit var sqlLiteHelper: SQLLiteHelper
     var billRecords = ArrayList<BillRecord>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage_layout)
@@ -32,12 +39,26 @@ class HomePageActivity : AppCompatActivity() {
         }
     }
 
-    fun deleteRecord(){
+    fun deleteRecordDialog(id: Int){
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_alert_box)
+        dialog.confirm_btn.setOnClickListener {
+            deleteRecord(id)
+        }
+        dialog.cancel_btn.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
 
     }
 
+    fun deleteRecord(id : Int){
+        
+        bill_records.adapter?.notifyDataSetChanged()
+    }
+
     private fun ItemClicked(item : BillRecord) {
-        Toast.makeText(this, "Clicked: ${item.id}", Toast.LENGTH_LONG).show()
+        deleteRecordDialog(item.id)
     }
 
 

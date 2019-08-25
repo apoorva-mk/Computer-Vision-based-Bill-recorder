@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apoorva.kill_bill.R
 import com.apoorva.kill_bill.objects.BillRecord
 import kotlinx.android.synthetic.main.bill_record_list_layout.view.*
-import kotlinx.android.synthetic.main.custom_dialog_box.view.*
 
 class BillRecordAdapter(val items: ArrayList<BillRecord>, val context: Context, val clickListener: (BillRecord) -> Unit) : RecyclerView.Adapter<ViewHolder>(){
 
