@@ -1,8 +1,7 @@
 package com.apoorva.kill_bill.userInterface.HomePage
 
-import android.app.AlertDialog
+
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -15,8 +14,8 @@ import com.apoorva.kill_bill.objects.BillRecord
 import com.apoorva.kill_bill.userInterface.captureAmount.CaptureAmountActivity
 import kotlinx.android.synthetic.main.activity_homepage_layout.*
 import kotlinx.android.synthetic.main.custom_alert_box.*
-import kotlinx.android.synthetic.main.custom_alert_box.view.*
-import kotlinx.android.synthetic.main.custom_dialog_box.*
+
+
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -36,6 +35,9 @@ class HomePageActivity : AppCompatActivity() {
         capture_amount_btn.setOnClickListener {
             val intent = Intent(this, CaptureAmountActivity::class.java)
             startActivity(intent)
+            //billRecords = sqlLiteHelper.getAllElements()
+            finish()
+            //bill_records.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -44,6 +46,7 @@ class HomePageActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.custom_alert_box)
         dialog.confirm_btn.setOnClickListener {
             deleteRecord(id)
+            dialog.dismiss()
         }
         dialog.cancel_btn.setOnClickListener {
             dialog.dismiss()
@@ -53,7 +56,12 @@ class HomePageActivity : AppCompatActivity() {
     }
 
     fun deleteRecord(id : Int){
-        
+        sqlLiteHelper.deleteProduct(id)
+        Toast.makeText(this, "Item Deleted Successfully!", Toast.LENGTH_SHORT).show()
+        for (i in 0 until billRecords.size){
+            if(billRecords[i].id==id)
+                billRecords.removeAt(i)
+        }
         bill_records.adapter?.notifyDataSetChanged()
     }
 

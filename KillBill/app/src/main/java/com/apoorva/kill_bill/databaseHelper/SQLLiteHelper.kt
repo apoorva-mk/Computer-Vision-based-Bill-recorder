@@ -98,4 +98,20 @@ class SQLLiteHelper (context: Context, name: String?,
         return list
     }
 
+    fun deleteProduct(id: Int) {
+
+        val db = this.writableDatabase
+        val selectQuery = "SELECT  * FROM "+ TABLE
+        val cursor = db.rawQuery(selectQuery, null)
+
+        if (cursor.moveToFirst()) {
+            val id = Integer.parseInt(cursor.getString(0))
+            db.delete(TABLE, COLUMN_ID + " = ?",
+                arrayOf(id.toString()))
+            cursor.close()
+        }
+        db.close()
+    }
+
+
 }

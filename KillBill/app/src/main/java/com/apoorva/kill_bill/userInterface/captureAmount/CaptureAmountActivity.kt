@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.apoorva.kill_bill.databaseHelper.SQLLiteHelper
 import com.apoorva.kill_bill.objects.BillRecord
+import com.apoorva.kill_bill.userInterface.HomePage.HomePageActivity
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.gms.vision.Frame
 import kotlinx.android.synthetic.main.custom_dialog_box.*
@@ -212,5 +213,11 @@ class CaptureAmountActivity : AppCompatActivity(){
         val formattedDate = df.format(c)
         return formattedDate
         showToastMessage(formattedDate)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, HomePageActivity::class.java)
+        startActivity(intent)
     }
 }
