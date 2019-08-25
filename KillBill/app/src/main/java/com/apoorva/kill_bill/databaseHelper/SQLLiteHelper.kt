@@ -74,7 +74,7 @@ class SQLLiteHelper (context: Context, name: String?,
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        var obj = BillRecord(cursor.getString(2), cursor.getDouble(3), cursor.getString(1))
+                        var obj = BillRecord(cursor.getInt(0),cursor.getString(2), cursor.getDouble(3), cursor.getString(1))
                         list.add(obj)
                     } while (cursor.moveToNext())
                 }

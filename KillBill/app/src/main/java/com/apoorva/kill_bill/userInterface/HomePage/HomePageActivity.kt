@@ -2,6 +2,7 @@ package com.apoorva.kill_bill.userInterface.HomePage
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.apoorva.kill_bill.Adapters.BillRecordAdapter
@@ -22,7 +23,7 @@ class HomePageActivity : AppCompatActivity() {
         billRecords = sqlLiteHelper.getAllElements()
 
         bill_records.layoutManager = LinearLayoutManager(this)
-        bill_records.adapter = BillRecordAdapter(billRecords, this)
+        bill_records.adapter = BillRecordAdapter(billRecords, this, { billRecord:BillRecord -> ItemClicked(billRecord)})
 
         //Open capture bill amount from image activity
         capture_amount_btn.setOnClickListener {
@@ -30,4 +31,14 @@ class HomePageActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    fun deleteRecord(){
+
+    }
+
+    private fun ItemClicked(item : BillRecord) {
+        Toast.makeText(this, "Clicked: ${item.id}", Toast.LENGTH_LONG).show()
+    }
+
+
 }

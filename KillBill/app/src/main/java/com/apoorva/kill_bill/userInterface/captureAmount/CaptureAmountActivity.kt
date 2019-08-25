@@ -26,8 +26,6 @@ import java.util.*
 
 class CaptureAmountActivity : AppCompatActivity(){
 
-    val mOcrDetector = OcrDetector()
-    val recordBillDetails = RecordBillDetails()
     private val PICK_FROM_GALLERY = 1
     private val CAMERA_REQUEST = 2
     private val MY_CAMERA_PERMISSION_CODE = 100
