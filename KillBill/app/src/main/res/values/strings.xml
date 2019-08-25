@@ -6,4 +6,9 @@
     <string name="add_new_bill">Add New Bill</string>
     <string name="low_storage_error">Error: Low Storage!</string>
     <string name="cant_open_gallery">Cannot open Gallery!</string>
+    <string name="amt_not_detected">Bill Amount Not Detected</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

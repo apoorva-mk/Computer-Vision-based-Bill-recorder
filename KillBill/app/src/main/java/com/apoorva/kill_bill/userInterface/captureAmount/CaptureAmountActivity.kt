@@ -2,6 +2,7 @@ package com.apoorva.kill_bill.userInterface.captureAmount
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,14 +14,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import android.R.attr.bitmap
+import android.util.Log
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.gms.vision.Frame
-import com.google.android.gms.vision.text.TextBlock
-import android.util.SparseArray
-
-
-
+import kotlinx.android.synthetic.main.custom_dialog_box.*
 
 
 class CaptureAmountActivity : AppCompatActivity(){
@@ -30,6 +27,7 @@ class CaptureAmountActivity : AppCompatActivity(){
     private val PICK_FROM_GALLERY = 1
     private val CAMERA_REQUEST = 2
     private val MY_CAMERA_PERMISSION_CODE = 100
+    var amount = -1.0
 
 
 
@@ -102,15 +100,14 @@ class CaptureAmountActivity : AppCompatActivity(){
                 val filePath = cursor.getString(columnIndex)
                 cursor.close()
                 val yourSelectedImage = BitmapFactory.decodeFile(filePath)
-                var text = getTextFromImage(yourSelectedImage)
-                showToastMessage(text)
+                getTextFromImage(yourSelectedImage)
+
             }
         }
 
         if (requestCode === CAMERA_REQUEST && resultCode === Activity.RESULT_OK) {
             val photoCaptured = data?.getExtras()?.get("data") as Bitmap
-            var text = getTextFromImage(photoCaptured)
-            showToastMessage(text)
+            getTextFromImage(photoCaptured)
         }
 
     }
@@ -144,10 +141,10 @@ class CaptureAmountActivity : AppCompatActivity(){
     }
 
 
-    fun getTextFromImage(image : Bitmap) : String{
+    fun getTextFromImage(image : Bitmap){
         val textRecognizer = TextRecognizer.Builder(applicationContext).build()
         val imageFrame = Frame.Builder()
-            .setBitmap(image)                 // your image bitmap
+            .setBitmap(image)
             .build()
 
         var imageText = ""
@@ -156,9 +153,48 @@ class CaptureAmountActivity : AppCompatActivity(){
         for (i in 0 until textBlocks.size()) {
             val textBlock = textBlocks.get(textBlocks.keyAt(i))
             imageText = textBlock.getValue()
+            Log.i(i.toString().plus(" "), imageText.plus("%$%$#"))
+            showToastMessage("parsing")
+            if(parseText(imageText)){
+                showDialog()
+                break
+            }
+            else{
+                showToastMessage("dsds")
+            }
         }
-
-        return imageText
     }
 
+    fun parseText(text: String) : Boolean{
+        if(text.matches("(Total|Cash|TOTAL|CASH|cash)[:]*[' ']*(\\d+(\\.\\d+)?)".toRegex())){
+            val numRegex = "(\\d+(\\.\\d+)?)".toRegex()
+            val matchResult = numRegex.find(text)
+            if(matchResult!=null){
+                showToastMessage(matchResult.value)
+                amount = matchResult.value.toDouble()
+                return true
+            }
+
+            else {
+                showToastMessage(getString(R.string.amt_not_detected))
+                return false
+            }
+
+
+        }
+
+        else{
+            showToastMessage(getString(R.string.amt_not_detected))
+            return false
+        }
+
+    }
+
+    fun showDialog(){
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.custom_dialog_box)
+        dialog.setTitle("Confirm Amount and Save")
+        dialog.amount.setText(amount.toString())
+        dialog.show()
+    }
 }
