@@ -41,22 +41,25 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:padding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <TextView
                     android:text=""
-                    android:layout_width="54dp"
+                    android:layout_width="wrap_content"
                     android:padding="7dp"
                     android:gravity="center"
-                    android:layout_height="51dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/bill_amt"/>
 
-            <com.google.android.material.button.MaterialButton
+            <ImageButton
                     android:id="@+id/material_icon_button"
                     android:layout_width="40dp"
                     android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorOnPrimary"/>
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_cancel_black_24dp"
+                    android:background="@color/colorOnPrimary"
+                    app:cornerRadius="20dp"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
