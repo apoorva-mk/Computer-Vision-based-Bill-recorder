@@ -3,6 +3,8 @@ package com.apoorva.kill_bill.userInterface.HomePage
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.apoorva.kill_bill.Adapters.BillRecordAdapter
 import com.apoorva.kill_bill.R
 import com.apoorva.kill_bill.databaseHelper.SQLLiteHelper
 import com.apoorva.kill_bill.objects.BillRecord
@@ -16,13 +18,16 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage_layout)
+        sqlLiteHelper = SQLLiteHelper(this, null, null, 1)
+        billRecords = sqlLiteHelper.getAllElements()
+
+        bill_records.layoutManager = LinearLayoutManager(this)
+        bill_records.adapter = BillRecordAdapter(billRecords, this)
 
         //Open capture bill amount from image activity
         capture_amount_btn.setOnClickListener {
             val intent = Intent(this, CaptureAmountActivity::class.java)
             startActivity(intent)
-            sqlLiteHelper = SQLLiteHelper(this, null, null, 1)
-            billRecords = sqlLiteHelper.getAllElements()
         }
     }
 }

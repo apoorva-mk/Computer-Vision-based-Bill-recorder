@@ -3,12 +3,10 @@
 
 package com.apoorva.kill_bill.databaseHelper
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import com.apoorva.kill_bill.objects.BillRecord
 
 
@@ -76,9 +74,8 @@ class SQLLiteHelper (context: Context, name: String?,
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        var obj = BillRecord(cursor.getString(1), cursor.getDouble(2), cursor.getString(3))
+                        var obj = BillRecord(cursor.getString(2), cursor.getDouble(3), cursor.getString(1))
                         list.add(obj)
-                        Log.i("obj", obj.toString())
                     } while (cursor.moveToNext())
                 }
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:padding="15dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="240dp"
+                android:layout_weight="0.7"
+                android:layout_height="51dp">
+            <TextView
+                    android:text=""
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bill_desc"/>
+            <TextView
+                    android:text=""
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bill_date"/>
+        </LinearLayout>
+
+        <TextView
+                android:text=""
+                android:layout_width="54dp"
+                android:padding="7dp"
+                android:gravity="center"
+                android:layout_height="51dp"
+                android:id="@+id/bill_amt"
+                android:layout_weight="0.4"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/material_icon_button"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@color/colorOnPrimary"
+                app:icon="@drawable/ic_cancel_black_24dp"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
