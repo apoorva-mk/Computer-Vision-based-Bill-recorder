@@ -12,12 +12,16 @@ import kotlinx.android.synthetic.main.activity_capture_amount_layout.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import android.util.Log
+import com.apoorva.kill_bill.databaseHelper.SQLLiteHelper
+import com.apoorva.kill_bill.objects.BillRecord
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.gms.vision.Frame
 import kotlinx.android.synthetic.main.custom_dialog_box.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CaptureAmountActivity : AppCompatActivity(){
@@ -153,14 +157,9 @@ class CaptureAmountActivity : AppCompatActivity(){
         for (i in 0 until textBlocks.size()) {
             val textBlock = textBlocks.get(textBlocks.keyAt(i))
             imageText = textBlock.getValue()
-            Log.i(i.toString().plus(" "), imageText.plus("%$%$#"))
-            showToastMessage("parsing")
             if(parseText(imageText)){
                 showDialog()
                 break
-            }
-            else{
-                showToastMessage("dsds")
             }
         }
     }
@@ -195,6 +194,25 @@ class CaptureAmountActivity : AppCompatActivity(){
         dialog.setContentView(R.layout.custom_dialog_box)
         dialog.setTitle("Confirm Amount and Save")
         dialog.amount.setText(amount.toString())
+        dialog.cancel_button.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.confirm_button.setOnClickListener {
+            val dbHandler = SQLLiteHelper(this, null, null, 1)
+            var billRecord = BillRecord(dialog.description.text.toString(), java.lang.Double.parseDouble(dialog.amount.text.toString()), getDate())
+            dbHandler.addProduct(billRecord)
+            dbHandler.getAllElements()
+            dialog.dismiss()
+        }
         dialog.show()
+    }
+
+    fun getDate() : String{
+        val c = Calendar.getInstance().getTime()
+
+        val df = SimpleDateFormat("dd-MM-yyyy")
+        val formattedDate = df.format(c)
+        return formattedDate
+        showToastMessage(formattedDate)
     }
 }

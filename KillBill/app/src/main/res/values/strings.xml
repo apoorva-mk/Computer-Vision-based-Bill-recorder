@@ -11,4 +11,9 @@
     <string name="amount">Amount</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="database_name">BillRecordsDatabase</string>
+    <string name="bill_records">BillRecords</string>
+    <string name="id">Id</string>
+    <string name="date">Date</string>
+    <string name="desc">Desc</string>
 </resources>

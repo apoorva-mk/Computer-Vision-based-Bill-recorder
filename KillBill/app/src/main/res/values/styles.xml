@@ -25,6 +25,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="input_field_style">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@color/colorOnPrimary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
 
 </resources>
