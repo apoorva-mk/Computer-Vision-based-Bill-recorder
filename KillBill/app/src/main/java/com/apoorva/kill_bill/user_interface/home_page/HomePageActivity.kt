@@ -28,6 +28,9 @@ class HomePageActivity : AppCompatActivity() {
         sqlLiteHelper = SQLLiteHelper(this, null, null, 1)
         billRecords = sqlLiteHelper.getAllElements()
 
+        if(billRecords.size==0)
+            Toast.makeText(this, getString(R.string.no_bills_stored), Toast.LENGTH_SHORT).show()
+
         bill_records.layoutManager = LinearLayoutManager(this)
         bill_records.adapter = BillRecordAdapter(billRecords, this, { billRecord:BillRecord -> ItemClicked(billRecord)})
 

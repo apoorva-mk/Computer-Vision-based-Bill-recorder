@@ -8,12 +8,15 @@ Language used : Kotlin
 Minimum API Level : API 21, Android 5.0 (Lollipop)
 <br>
 Android Studio Version : 3.4
+<br>
+Application Size : 4MB
 
 ---
 
 ***How to set up:***
 - Clone the repository and then connect an Android phone/Emulator of the minimum given SDK level and then press 'Run' in Android Studio
 - It is mandatory for the Android device to have camera hardware and internal storage for images.
+- The app can also be installed from the unsigned APK, however some phone settings need to be enabled to allow download from unknows source.
 
 ---
 
