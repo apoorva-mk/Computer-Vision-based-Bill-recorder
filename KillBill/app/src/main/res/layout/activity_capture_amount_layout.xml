@@ -13,6 +13,13 @@
             android:background="#FFFFFF"
             android:src="@drawable/personalized_camera_icon"/>
 
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:text="Please keep the bill upright when clicking an image."/>
+
     <com.google.android.material.button.MaterialButton
             android:text="@string/open_camera"
             android:id="@+id/open_camera"

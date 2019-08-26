@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_capture_amount_layout.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.apoorva.kill_bill.database_helper.SQLLiteHelper
@@ -156,15 +157,20 @@ class CaptureAmountActivity : AppCompatActivity(){
 
         var imageText = ""
         val textBlocks = textRecognizer.detect(imageFrame)
-
+        var check = 0
         for (i in 0 until textBlocks.size()) {
             val textBlock = textBlocks.get(textBlocks.keyAt(i))
             imageText = textBlock.getValue()
             if(parseText(imageText)){
                 showDialog()
+                check = 1
                 break
             }
         }
+        if(check==0){
+            showToastMessage(getString(R.string.amt_not_detected))
+        }
+
     }
 
     //Use of regex to detect the amount
@@ -173,24 +179,12 @@ class CaptureAmountActivity : AppCompatActivity(){
             val numRegex = "(\\d+(\\.\\d+)?)".toRegex()
             val matchResult = numRegex.find(text)
             if(matchResult!=null){
-                showToastMessage(matchResult.value)
                 amount = matchResult.value.toDouble()
                 return true
             }
-
-            else {
-                showToastMessage(getString(R.string.amt_not_detected))
-                return false
-            }
-
-
         }
 
-        else{
-            showToastMessage(getString(R.string.amt_not_detected))
-            return false
-        }
-
+        return false
     }
 
     //Show a dialog for entering description and the amount
@@ -203,11 +197,18 @@ class CaptureAmountActivity : AppCompatActivity(){
             dialog.dismiss()
         }
         dialog.confirm_button.setOnClickListener {
-            val dbHandler = SQLLiteHelper(this, null, null, 1)
-            var billRecord = BillRecord(dialog.description.text.toString(), java.lang.Double.parseDouble(dialog.amount.text.toString()), getDate())
-            dbHandler.addProduct(billRecord)
-            dbHandler.getAllElements()
-            dialog.dismiss()
+
+            if(dialog.description.text.toString().length!=0){
+                val dbHandler = SQLLiteHelper(this, null, null, 1)
+                var billRecord = BillRecord(dialog.description.text.toString(), java.lang.Double.parseDouble(dialog.amount.text.toString()), getDate())
+                dbHandler.addProduct(billRecord)
+                dbHandler.getAllElements()
+                dialog.dismiss()
+            }
+
+            else {
+                showToastMessage(getString(R.string.dialog_warning))
+            }
         }
         dialog.show()
     }
