@@ -32,7 +32,7 @@ class HomePageActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.no_bills_stored), Toast.LENGTH_SHORT).show()
 
         bill_records.layoutManager = LinearLayoutManager(this)
-        bill_records.adapter = BillRecordAdapter(billRecords, this, { billRecord:BillRecord -> ItemClicked(billRecord)})
+        bill_records.adapter = BillRecordAdapter(billRecords, this, { billRecord:BillRecord -> itemClicked(billRecord)})
 
         //Open capture bill amount from image activity
         capture_amount_btn.setOnClickListener {
@@ -57,19 +57,22 @@ class HomePageActivity : AppCompatActivity() {
 
     }
 
-    //Delete the record from sqlite db as well as our array so that recyclerview can be unpdated
+    //Delete the record from sqlite db as well as our array so that recycler view can be updated
     fun deleteRecord(id : Int){
         sqlLiteHelper.deleteProduct(id)
         Toast.makeText(this, getString(R.string.item_deleted_msg), Toast.LENGTH_SHORT).show()
         for (i in 0 until billRecords.size){
-            if(billRecords[i].id==id)
+            if(billRecords[i].id==id){
                 billRecords.removeAt(i)
+                break
+            }
+
         }
         bill_records.adapter?.notifyDataSetChanged()
     }
 
     //Function which will be passed around to implement click listener
-    private fun ItemClicked(item : BillRecord) {
+    private fun itemClicked(item : BillRecord) {
         deleteRecordDialog(item.id)
     }
 
